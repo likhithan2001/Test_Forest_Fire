@@ -1,143 +1,194 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FWI Prediction</title>
+    <style>
+        /* General body styling */
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        /* Login container styling */
+        
+        .login {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+        /* Heading styling */
+        
+        .login h1 {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            color: #fff;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        /* Input field styling */
+        
+        .login input {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            color: #333;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+        
+        .login input:focus {
+            background: rgba(255, 255, 255, 1);
+            transform: scale(1.02);
+            outline: none;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        /* Button styling */
+        
+        .login button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 25px;
+            background: linear-gradient(135deg, #ff6f61, #ff4d4d);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+        
+        .login button:hover {
+            background: linear-gradient(135deg, #ff4d4d, #ff6f61);
+            transform: translateY(-3px);
+        }
+        
+        .login button:active {
+            transform: translateY(0);
+        }
+        /* Result text styling */
+        
+        .login h2 {
+            margin-top: 25px;
+            font-size: 1.5rem;
+            color: #fff;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        /* Loading spinner styling */
+        
+        .loader {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #ff6f61;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+            display: none;
+        }
+        
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        /* Animation for fade-in effect */
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* Responsive design */
+        
+        @media (max-width: 480px) {
+            .login {
+                padding: 20px;
+            }
+            .login h1 {
+                font-size: 2rem;
+            }
+            .login input {
+                padding: 10px;
+            }
+            .login button {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
 
 <body>
     <div class="login">
         <h1>FWI Prediction</h1>
-        <style>
-            /* General body styling */
-            
-            body {
-                margin: 0;
-                padding: 0;
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                background: linear-gradient(135deg, #1e3c72, #2a5298);
-                color: #fff;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-            }
-            /* Login container styling */
-            
-            .login {
-                background: rgba(255, 255, 255, 0.1);
-                backdrop-filter: blur(10px);
-                border-radius: 15px;
-                padding: 30px;
-                width: 100%;
-                max-width: 400px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-                text-align: center;
-                animation: fadeIn 1s ease-in-out;
-            }
-            /* Heading styling */
-            
-            .login h1 {
-                font-size: 2.5rem;
-                margin-bottom: 20px;
-                color: #fff;
-                text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-            }
-            /* Input field styling */
-            
-            .login input {
-                width: 100%;
-                padding: 12px;
-                margin: 10px 0;
-                border: none;
-                border-radius: 8px;
-                background: rgba(255, 255, 255, 0.8);
-                font-size: 1rem;
-                color: #333;
-                transition: background 0.3s ease, transform 0.3s ease;
-            }
-            
-            .login input:focus {
-                background: rgba(255, 255, 255, 1);
-                transform: scale(1.02);
-                outline: none;
-            }
-            /* Button styling */
-            
-            .login button {
-                width: 100%;
-                padding: 12px;
-                margin-top: 20px;
-                background: linear-gradient(135deg, #ff6f61, #ff4d4d);
-                color: #fff;
-                border: none;
-                border-radius: 8px;
-                font-size: 1.1rem;
-                cursor: pointer;
-                transition: background 0.3s ease, transform 0.3s ease;
-            }
-            
-            .login button:hover {
-                background: linear-gradient(135deg, #ff4d4d, #ff6f61);
-                transform: translateY(-2px);
-            }
-            
-            .login button:active {
-                transform: translateY(0);
-            }
-            /* Result text styling */
-            
-            .login h2 {
-                margin-top: 20px;
-                font-size: 1.5rem;
-                color: #fff;
-                text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-            }
-            /* Animation for fade-in effect */
-            
-            @keyframes fadeIn {
-                from {
-                    opacity: 0;
-                    transform: translateY(-20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-            /* Responsive design */
-            
-            @media (max-width: 480px) {
-                .login {
-                    padding: 20px;
-                }
-                .login h1 {
-                    font-size: 2rem;
-                }
-                .login input {
-                    padding: 10px;
-                }
-                .login button {
-                    padding: 10px;
-                }
-            }
-        </style>
+        <form id="predictionForm" action="{{ url_for('predict_datapoint') }}" method="post">
+            <input type="number" name="Temperature" placeholder="Temperature (°C)" required step="0.1" /><br>
+            <input type="number" name="RH" placeholder="Relative Humidity (%)" required step="0.1" /><br>
+            <input type="number" name="Ws" placeholder="Wind Speed (km/h)" required step="0.1" /><br>
+            <input type="number" name="Rain" placeholder="Rainfall (mm)" required step="0.1" /><br>
+            <input type="number" name="FFMC" placeholder="FFMC Index" required step="0.1" /><br>
+            <input type="number" name="DMC" placeholder="DMC Index" required step="0.1" /><br>
+            <input type="number" name="ISI" placeholder="ISI Index" required step="0.1" /><br>
+            <input type="number" name="Classes" placeholder="Classes" required step="0.1" /><br>
+            <input type="number" name="Region" placeholder="Region Code" required step="0.1" /><br>
 
-        <!-- Main Input For Receiving Query to our ML -->
-        <form action="{{ url_for('predict_datapoint')}}" method="post">
-            <input type="text" name="Temperature" placeholder="Temperature" required="required" /><br>
-            <input type="text" name="RH" placeholder="RH" required="required" /><br>
-            <input type="text" name="Ws" placeholder="Ws" required="required" /><br>
-            <input type="text" name="Rain" placeholder="Rain" required="required" /><br>
-            <input type="text" name="FFMC" placeholder="FFMC" required="required" /><br>
-            <input type="text" name="DMC" placeholder="DMC" required="required" /><br>
-            <input type="text" name="ISI" placeholder="ISI" required="required" /><br>
-            <input type="text" name="Classes" placeholder="Classes" required="required" /><br>
-            <input type="text" name="Region" placeholder="Region" required="required" /><br>
-
-
-
-            <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+            <button type="submit" class="btn btn-primary btn-block btn-large">
+                Predict
+            </button>
+            <div class="loader" id="loader"></div>
         </form>
-        <h2>
-            THE FWI prediction is {{result}}
+        <h2 id="resultText">
+            THE FWI prediction is {{ result }}
         </h2>
+    </div>
 
-        <body>
+    <script>
+        // Add a loading spinner and disable button during form submission
+        const form = document.getElementById('predictionForm');
+        const loader = document.getElementById('loader');
+        const resultText = document.getElementById('resultText');
+        const submitButton = form.querySelector('button');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent default form submission for demo purposes
+            submitButton.disabled = true;
+            loader.style.display = 'block';
+            resultText.textContent = 'Calculating...';
+
+            // Simulate a delay for the prediction (replace with actual API call)
+            setTimeout(() => {
+                loader.style.display = 'none';
+                submitButton.disabled = false;
+                resultText.textContent = 'THE FWI prediction is 5.2'; // Replace with actual result
+            }, 2000);
+        });
+    </script>
+</body>
 
 </html>
